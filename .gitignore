@@ -1,0 +1,49 @@
+### Python ###
+# Байт-код и кэш Python
+__pycache__/
+pycache/
+*.py[cod]
+*$py.class
+
+# Виртуальные окружения
+.venv/
+venv/
+env/
+ENV/
+
+# Переменные окружения
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# IDE и редакторы
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Логи и временные файлы
+*.log
+*.tmp
+*.pid
+
+# Тестовые артефакты
+.coverage
+htmlcov/
+.pytest_cache/
+test-results/
+
+# Установленные зависимости (если не используете poetry/requirements.txt)
+site-packages/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
