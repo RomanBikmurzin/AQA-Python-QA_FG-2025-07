@@ -59,17 +59,13 @@ def test_user_default_count_per_page():
         headers={"x-api-key": os.getenv("X_API_KEY")},
     )
 
-    assert response.status_code == 200, ( #без .json() до проверки статуса
+    assert response.status_code == 200, (  # без .json() до проверки статуса
         f"Ожидался статус 200, получен {response.status_code}. "
         f"Ответ сервера: {response.text}"
     )
 
     users_count = len(response.json()["data"])
-    assert (
-        users_count == 6
-    ), f"Ожидалось 6 пользователей, получено {users_count}"
-
-
+    assert users_count == 6, f"Ожидалось 6 пользователей, получено {users_count}"
 
 
 # ------------ Протестировать https://reqres.in/api/unknown ------------------
@@ -90,35 +86,32 @@ class Colors(BaseModel):
     total_pages: int
     data: list[ColorSample]
 
+
 @pytest.fixture
 def api_session():
     session = requests.Session()
-    session.headers.update({
-        "x-api-key": os.getenv("X_API_KEY"),
-        "Content-Type": "application/json"
-    })
+    session.headers.update(
+        {"x-api-key": os.getenv("X_API_KEY"), "Content-Type": "application/json"}
+    )
     yield session
     session.close()
+
 
 @pytest.fixture
 def get_all_colors(api_session) -> Colors:
     all_colors = list()
     base_url = "https://reqres.in/api/unknown"
 
-    response = api_session.get(
-        url=base_url,
-        params={"page": 1}
-    ).json()
+    response = api_session.get(url=base_url, params={"page": 1}).json()
     total_pages = response["total_pages"]
 
     all_colors.extend(response["data"])
 
     for page in range(2, total_pages + 1):
-        response = api_session.get(
-            url=base_url,
-            params={"page": page}
-        )
-        assert response.status_code == 200, f"Page {page} failed with {response.status_code}"
+        response = api_session.get(url=base_url, params={"page": page})
+        assert (
+            response.status_code == 200
+        ), f"Page {page} failed with {response.status_code}"
         response = response.json()
         all_colors.extend(response["data"])
 
