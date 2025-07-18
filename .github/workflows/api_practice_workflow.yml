@@ -1,13 +1,17 @@
-name: Python CI
+name: CI for API practice
 
 on: [push, pull_request]
 
 jobs:
   format-and-test:
     runs-on: ubuntu-latest
+    env:                       # 👈 здесь
+      X_API_KEY:     ${{ secrets.X_API_KEY }}
+      TEST_EMAIL:    ${{ secrets.TEST_EMAIL }}
+      TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+
     steps:
     - uses: actions/checkout@v4
-    
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
