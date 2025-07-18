@@ -25,8 +25,8 @@ def api_client():
 @pytest.fixture
 def credentials():
     return {
-        "email": os.getenv("TEST_EMAIL"),
-        "password": os.getenv("TEST_PASSWORD"),
+        "email": os.environ["TEST_EMAIL"],
+        "password": os.environ["TEST_PASSWORD"],
     }
 
 
@@ -60,7 +60,7 @@ def test_user_default_count_per_page():
     response = requests.get(
         url=f"https://reqres.in/api/users",
         params={"page": 2},
-        headers={"x-api-key": os.getenv("X_API_KEY")},
+        headers={"x-api-key": os.environ["X_API_KEY"]},
     )
 
     assert response.status_code == 200, (  # без .json() до проверки статуса
@@ -95,7 +95,7 @@ class Colors(BaseModel):
 def api_session():
     session = requests.Session()
     session.headers.update(
-        {"x-api-key": os.getenv("X_API_KEY"), "Content-Type": "application/json"}
+        {"x-api-key": os.environ["X_API_KEY"], "Content-Type": "application/json"}
     )
     yield session
     session.close()
