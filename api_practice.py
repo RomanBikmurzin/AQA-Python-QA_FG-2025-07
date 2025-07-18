@@ -13,9 +13,9 @@ load_dotenv()
 @pytest.fixture
 def api_client():
     try:
-        api_key = os.environ["X_API_KEY"]      # бросит KeyError, если нет
+        api_key = os.environ["X_API_KEY"]  # бросит KeyError, если нет
     except KeyError as e:
-        pytest.skip("X_API_KEY not set in env") # тест отметится SKIPPED
+        pytest.skip("X_API_KEY not set in env")  # тест отметится SKIPPED
     return {
         "base_url": "https://reqres.in",
         "headers": {"x-api-key": api_key},
